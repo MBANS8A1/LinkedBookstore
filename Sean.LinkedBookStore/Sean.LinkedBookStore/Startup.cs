@@ -7,7 +7,7 @@ namespace Sean.LinkedBookStore
     {
         //This method gets called at runtime. Use this method to add services to the container
         //
-        public void ConfigurationServices(IServiceCollection services) //for dependencies used in the application are defined here
+        public void ConfigureServices(IServiceCollection services) //for dependencies used in the application are defined here
         {
             services.AddControllersWithViews();
         }
@@ -44,20 +44,13 @@ namespace Sean.LinkedBookStore
 
             app.UseRouting(); //to enable routing and to map a URL to a particular resource
             app.UseEndpoints(endpoints =>   //for setting up the default routing
-               {      //Map maps the url ("/" is the default url) to the resource
-                   endpoints.Map("/", async context =>
-                   {
-                       //if (env.IsEnvironment("Develop"))
-                       //{
-                       //    await context.Response.WriteAsync("Hello from custom name environment.\n\n");
+            {
+                endpoints.MapControllerRoute(
+                     name: "default",
+                     pattern: "{controller=Home}/{action=Index}/{id?}"
+                 );
 
-                       //}
-                       //else
-                       //{
-                       //    await context.Response.WriteAsync($"Hello from {env.EnvironmentName}.\n\n");
-                       //}
-                       await context.Response.WriteAsync("Hello world.\n\n");
-                   });
+                //endpoints.MapDefaultControllerRoute(); 
             });
             //app.UseEndpoints(endpoints =>   //for setting up the route to pages
             //{      //Map maps the url "/pages"
