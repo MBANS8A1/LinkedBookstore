@@ -7,14 +7,15 @@ namespace Sean.LinkedBookStore
     {
         //This method gets called at runtime. Use this method to add services to the container
         //
-        public void ConfigurationServices(IServiceCollection service) //for dependencies used in the application are defined here
+        public void ConfigurationServices(IServiceCollection services) //for dependencies used in the application are defined here
         {
-
+            services.AddControllersWithViews();
         }
 
         //This method gers called at runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //for the http applications and using environment of the //application
         {
+            //
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -46,16 +47,25 @@ namespace Sean.LinkedBookStore
                {      //Map maps the url ("/" is the default url) to the resource
                    endpoints.Map("/", async context =>
                    {
-                       await context.Response.WriteAsync("Hello from linkedbookstore application\n\n");
+                       //if (env.IsEnvironment("Develop"))
+                       //{
+                       //    await context.Response.WriteAsync("Hello from custom name environment.\n\n");
+
+                       //}
+                       //else
+                       //{
+                       //    await context.Response.WriteAsync($"Hello from {env.EnvironmentName}.\n\n");
+                       //}
+                       await context.Response.WriteAsync("Hello world.\n\n");
                    });
             });
-            app.UseEndpoints(endpoints =>   //for setting up the route to pages
-            {      //Map maps the url "/pages"
-                endpoints.Map("/pages", async context =>
-                {
-                    await context.Response.WriteAsync("Hello pages\n\n");
-                });
-            });
+            //app.UseEndpoints(endpoints =>   //for setting up the route to pages
+            //{      //Map maps the url "/pages"
+            //    endpoints.Map("/pages", async context =>
+            //    {
+            //        await context.Response.WriteAsync("Hello pages\n\n");
+            //    });
+            //});
         }
     }
 }
